@@ -1,0 +1,25 @@
+
+{
+  "name": "level51/silverstripe-excel-export",
+  "version": "0.0.1",
+  "time": "2019-01-24",
+  "description": "GridField button for excel exports",
+  "type": "silverstripe-module",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Daniel Kliemsch",
+      "email": "dk@lvl51.de"
+    },
+    {
+      "name": "Julian Scheuchenzuber",
+      "email": "js@lvl51.de"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7",
+    "silverstripe/framework": "~3.0",
+    "phpoffice/phpspreadsheet": "^1.6"
+  }
+}
