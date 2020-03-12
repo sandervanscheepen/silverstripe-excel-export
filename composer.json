@@ -1,8 +1,8 @@
 
 {
   "name": "level51/silverstripe-excel-export",
-  "version": "0.0.1",
-  "time": "2019-01-24",
+  "version": "0.1.0",
+  "time": "2020-03-12",
   "description": "GridField button for excel exports",
   "type": "silverstripe-module",
   "license": "proprietary",
