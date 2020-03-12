@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Level51\\ExcelExport": "src/"
+      "Level51\\ExcelExport\\": "src/"
     }
   }
 }
