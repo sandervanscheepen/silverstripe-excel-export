@@ -34,7 +34,7 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
         $button = new GridField_FormAction(
             $gridField,
             'exportexcel',
-            _t(self::class . '.EXPORT_CTA'),
+            _t(__CLASS__ . '.EXPORT_CTA', 'Export as Excel file'),
             'exportexcel',
             null
         );
