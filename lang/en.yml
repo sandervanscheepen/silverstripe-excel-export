@@ -1,3 +1,3 @@
 en:
-    GridFieldExcelExportButton:
-        EXPORT_CTA: Export as Excel file
+  Level51\ExcelExport\GridFieldExcelExportButton:
+    EXPORT_CTA: Export as Excel file

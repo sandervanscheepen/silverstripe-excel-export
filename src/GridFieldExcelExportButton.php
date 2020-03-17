@@ -1,7 +1,19 @@
 <?php
 
+namespace Level51\ExcelExport;
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridField_ActionProvider;
+use SilverStripe\Forms\GridField\GridField_FormAction;
+use SilverStripe\Forms\GridField\GridField_HTMLProvider;
+use SilverStripe\Forms\GridField\GridField_URLHandler;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 
 class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_ActionProvider, GridField_URLHandler {
 
@@ -22,16 +34,15 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
         $button = new GridField_FormAction(
             $gridField,
             'exportexcel',
-            _t(self::class . '.EXPORT_CTA'),
+            _t(__CLASS__ . '.EXPORT_CTA', 'Export as Excel file'),
             'exportexcel',
             null
         );
-        $button->setAttribute('data-icon', 'download-csv');
-        $button->addExtraClass('no-ajax action_export');
+        $button->addExtraClass('btn btn-secondary no-ajax font-icon-down-circled action_export');
         $button->setForm($gridField->getForm());
 
         return [
-            $this->targetFragment => '<p class="grid-csv-button">' . $button->Field() . '</p>',
+            $this->targetFragment => $button->Field(),
         ];
     }
 
@@ -157,6 +168,6 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
         $writer->save($path);
 
         // Read and return file content (triggers download) (MIME Type: https://blogs.msdn.microsoft.com/vsofficedeveloper/2008/05/08/office-2007-file-format-mime-types-for-http-content-streaming-2/)
-        return SS_HTTPRequest::send_file(file_get_contents($path), $fileName, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        return HTTPRequest::send_file(file_get_contents($path), $fileName, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     }
 }
