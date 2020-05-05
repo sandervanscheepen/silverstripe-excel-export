@@ -157,9 +157,10 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
         $sheet->fromArray($content, null, 'A2');
 
         // Auto size column width
-        // TODO prepare for larger ranges
-        foreach (range('A', range('A', 'Z')[count($headers)]) as $columnID) {
-            $sheet->getColumnDimension($columnID)
+        $headerRow = $sheet->getRowIterator(1,1)->current();
+
+        foreach ($headerRow->getCellIterator() as $cell) {
+            $sheet->getColumnDimension($cell->getColumn())
                 ->setAutoSize(true);
         }
 
