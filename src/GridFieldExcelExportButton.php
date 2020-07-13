@@ -25,6 +25,11 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
 
     protected $targetFragment;
 
+    /**
+     * @var callable
+     */
+    protected $afterExportCallback;
+
     public function __construct($targetFragment = 'before', $exportColumns = null) {
         $this->targetFragment = $targetFragment;
         $this->exportColumns = $exportColumns;
@@ -166,9 +171,34 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
 
         // Write xlsx file
         $writer = new Xlsx($spreadsheet);
+
+        if ($callback = $this->getAfterExportCallback()) {
+            $callback($writer);
+        }
+
         $writer->save($path);
 
         // Read and return file content (triggers download) (MIME Type: https://blogs.msdn.microsoft.com/vsofficedeveloper/2008/05/08/office-2007-file-format-mime-types-for-http-content-streaming-2/)
         return HTTPRequest::send_file(file_get_contents($path), $fileName, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    }
+
+    /**
+     *
+     * @return callable
+     */
+    public function getAfterExportCallback()
+    {
+        return $this->afterExportCallback;
+    }
+
+    /**
+     *
+     * @param callable $afterExportCallback
+     * @return ExcelGridFieldExportButton
+     */
+    public function setAfterExportCallback(callable $afterExportCallback)
+    {
+        $this->afterExportCallback = $afterExportCallback;
+        return $this;
     }
 }
