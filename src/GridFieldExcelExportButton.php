@@ -14,6 +14,7 @@ use SilverStripe\Forms\GridField\GridField_HTMLProvider;
 use SilverStripe\Forms\GridField\GridField_URLHandler;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\GridField\GridFieldPaginator;
 
 class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_ActionProvider, GridField_URLHandler {
 
@@ -106,6 +107,9 @@ class GridFieldExcelExportButton implements GridField_HTMLProvider, GridField_Ac
 
         // Write headers
         $sheet->fromArray($headers, null, 'A1');
+
+        //Remove GridFieldPaginator as we're going to export the entire list.
+        $gridField->getConfig()->removeComponentsByType(GridFieldPaginator::class);
 
         // Collect items / content rows (@see GridFieldExportButton)
         $items = $gridField->getManipulatedList();
